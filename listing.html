@@ -1,0 +1,124 @@
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1">
+    <link rel="icon" href="http://randrise.com/favicon.png" />
+    <title>ARC-24-v3: Visualization</title>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script>
+var url_prefix = 'https://raw.githubusercontent.com/dinhtt-randrise/kaggle-arc-24-images/main/'
+var data = __DATA__;
+var index = 0;
+var group = 'training'
+
+function g_onload() {
+    $(window).resize(function() {
+        g_resize(); 
+    });
+    g_resize();
+    g_show(index);
+}
+
+function g_resize() {
+    var w = $(window).width();
+    $('.yo-space').width(w - 32);
+    $('.yo-bar').width(w - 32);
+}
+
+function g_show(index) {
+    rw = data[group][index];
+    $('#yo-no').text(rw['no']);
+    $('#yo-id').text(rw['task_id']);
+    $('#yo-filename').text(rw['filename']);
+    
+    url = url_prefix + rw['filename']
+    $('#yo-image').attr('src', url)
+}
+
+function g_go_next() {
+    index += 1;
+    if (index >= data[group].length) {
+        index = data[group].length - 1;
+    }
+    g_show(index);
+}
+
+function g_go_previous() {
+    index -= 1;
+    if (index < 0) {
+        index = 0;
+    }
+    g_show(index);
+}
+
+function g_go_training() {
+    group = 'training'
+    index = 0
+    g_show(index)
+}
+
+function g_go_evaluation() {
+    group = 'evaluation'
+    index = 0
+    g_show(index)
+}
+
+function g_go_test() {
+    group = 'test'
+    index = 0
+    g_show(index)
+}
+    </script>
+    <style>
+body {
+    margin: 0px;
+    padding: 0px;
+}
+.yo-button {
+    border: solid 1px green;
+    border-radius: 10px 0px 10px 0px;
+    display: inline-block;
+    font-family: Arial, sans-serif;
+    font-size: 12px;
+    text-align: center;
+    cursor: pointer;
+    cursor: hand;
+    padding: 2px 5px 2px 5px;
+    margin: 5px;
+}
+
+.yo-bar {
+    margin: 5px 0px 5px 0px; 
+    float: left;
+}
+
+.yo-space {
+    float: left;
+    margin: 5px 0px 5px 5px;
+    border: solid 1px green;
+    border-radius: 5px;
+    padding: 10px;
+}
+    </style>
+</head>
+<body onload="g_onload()">
+    <div class="yo-bar">
+        <span class="yo-button" style="width: 75px" onclick="g_go_previous()">Previous</span>
+        <span class="yo-button" style="width: 75px" onclick="g_go_next()">Next</span>
+        <span class="yo-button" style="width: 75px" onclick="g_go_training()">Training</span>
+        <span class="yo-button" style="width: 75px" onclick="g_go_evaluation()">Evaluation</span>
+        <span class="yo-button" style="width: 75px" onclick="g_go_test()">Test</span>
+    </div>
+    <div id="yo-front" class="yo-space">
+        <div style="padding-top: 10px">
+            <span class="yo-button" style="width: 75px" id="yo-no"></span>
+            <span class="yo-button" style="width: 75px" id="yo-id"></span>
+            <span class="yo-button" style="width: 150px" id="yo-filename"></span>
+        </div>
+        <div>
+            <div style="overflow: scroll">
+                <img id="yo-image" />
+            </div>
+        </div>
+    </div>
+</body>
+</html>
