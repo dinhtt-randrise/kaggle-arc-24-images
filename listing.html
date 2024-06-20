@@ -67,6 +67,22 @@ function g_go_test() {
     index = 0
     g_show(index)
 }
+
+function g_find() {
+    var task_id = prompt('Enter task id which needs to be found:');
+    if (task_id == null) {
+        return;
+    }
+    for (i = 0; i < data[group].length; i++) {
+        rw = data[group][i];
+        if (rw['task_id'] == task_id) {
+            index = i;
+            g_show(index);
+            return;
+        }
+    }
+    alert('[' + task_id + '] task is not found!');
+}
     </script>
     <style>
 body {
@@ -107,6 +123,7 @@ body {
         <span class="yo-button" style="width: 75px" onclick="g_go_training()">Training</span>
         <span class="yo-button" style="width: 75px" onclick="g_go_evaluation()">Evaluation</span>
         <span class="yo-button" style="width: 75px" onclick="g_go_test()">Test</span>
+        <span class="yo-button" style="width: 75px" onclick="g_find()">Find</span>
     </div>
     <div id="yo-front" class="yo-space">
         <div style="padding-top: 10px">
