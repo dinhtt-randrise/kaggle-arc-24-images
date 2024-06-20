@@ -26,7 +26,7 @@ function g_resize() {
 
 function g_show(index) {
     rw = data[group][index];
-    $('#yo-no').text(rw['no']);
+    $('#yo-no').text(rw['no'] + ' / ' + data[group].length);
     $('#yo-id').text(rw['task_id']);
     $('#yo-filename').text(rw['filename']);
     
@@ -83,6 +83,22 @@ function g_find() {
     }
     alert('[' + task_id + '] task is not found!');
 }
+
+function g_go_to() {
+    var no = prompt('Enter task no which needs to be found:');
+    if (no == null) {
+        return;
+    }
+    idx = parseInt(no) - 1;
+    if (idx < 0) {
+        idx = 0;
+    }
+    if (idx >= data[group].length) {
+        idx = data[group].length;
+    }
+    index = idx;
+    g_show(index);
+}
     </script>
     <style>
 body {
@@ -124,6 +140,7 @@ body {
         <span class="yo-button" style="width: 75px" onclick="g_go_evaluation()">Evaluation</span>
         <span class="yo-button" style="width: 75px" onclick="g_go_test()">Test</span>
         <span class="yo-button" style="width: 75px" onclick="g_find()">Find</span>
+        <span class="yo-button" style="width: 75px" onclick="g_go_to()">Go</span>
     </div>
     <div id="yo-front" class="yo-space">
         <div style="padding-top: 10px">
